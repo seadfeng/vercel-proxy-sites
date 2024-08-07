@@ -57,5 +57,5 @@ Disallow: /
 }
 
 export const config = {
-  matcher: ['/']
+  matcher: ['/', '/:path*']
 };
