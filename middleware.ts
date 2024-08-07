@@ -7,10 +7,9 @@ const getTargetDomain = (host: string, ownDomain: string) => {
   return domains[0];
 };
 
-export default async function middleware(req: NextRequest) {
-  const host = req.headers.get('host') || process.env.VERCEL_PROJECT_PRODUCTION_URL!;
-  const url = new URL(`https://${host}${req.url}`);
-  const { pathname } = url; 
+export default async function middleware(req: NextRequest) { 
+  const url = new URL(req.url);
+  const { pathname, host } = url; 
 
   if (pathname === '/robots.txt') {
     const robots = `User-agent: *
@@ -33,8 +32,7 @@ Disallow: /
   console.log("url", url);
   console.log("ownDomain", ownDomain);
   console.log("targetDomain", targetDomain);
-  console.log("actualUrl", actualUrl);
-  console.log("VERCEL_PROJECT_PRODUCTION_URL", process.env.VERCEL_PROJECT_PRODUCTION_URL);
+  console.log("actualUrl", actualUrl); 
 
   try {
     const response = await fetch(actualUrl, {
