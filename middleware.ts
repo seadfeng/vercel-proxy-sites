@@ -27,7 +27,7 @@ Disallow: /
     return new Response('Internal Server Error', { status: 500 });
   }
   const origin = `https://${targetDomain}`;
-  const actualUrl = `${origin}${pathname}${url.search}${url.hash}`;
+  const actualUrl = decodeURIComponent(`${origin}${pathname}${url.search}${url.hash}`);
   console.log("actualUrl", actualUrl) 
 
   try {
