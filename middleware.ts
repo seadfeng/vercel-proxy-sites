@@ -30,6 +30,7 @@ Disallow: /
   const origin = `https://${targetDomain}`;
   const actualUrl = `${origin}${pathname}${url.search}${url.hash}`;
 
+  console.log("url", url);
   console.log("ownDomain", ownDomain);
   console.log("targetDomain", targetDomain);
   console.log("actualUrl", actualUrl);
