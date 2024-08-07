@@ -44,9 +44,11 @@ You can deploy this project to Vercel with the following button:
 
 Waiting ...
 
-Done!
+### 6. Done!
 
-### 6. Go to domains
+Go to domains
+
+![Go to domains](doc/images/domains.png)
 
 Visit your domain:
 
