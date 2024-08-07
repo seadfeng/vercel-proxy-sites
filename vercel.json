@@ -1,0 +1,14 @@
+{
+  "version": 2, 
+  "functions": {
+    "api/route.js": {
+      "runtime": "edge"
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/$1"
+    }
+  ]
+}
