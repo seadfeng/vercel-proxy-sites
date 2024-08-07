@@ -1,8 +1,9 @@
 // api/proxy.js
 export const runtime = 'edge';
 export default async function handler(req: Request) { 
-  const url = new URL(`https://${req.headers.host}${req.url}`);
-  const { host, pathname } = url; 
+  const host = req.headers.get('host') || process.env.VERCEL_PROJECT_PRODUCTION_URL!;
+  const url = new URL(`https://${host}${req.url}`);
+  const { pathname } = url; 
 
   if (pathname === '/robots.txt') {
     const robots = `User-agent: *
