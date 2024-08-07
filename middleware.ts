@@ -37,11 +37,15 @@ Disallow: /
       redirect: 'follow'
     });
 
-    let body = await response.text();
+    let body = await response.arrayBuffer();
     const contentType = response.headers.get('content-type');
 
     if (contentType && /^(application\/x-javascript|text\/)/i.test(contentType)) {
-      body = body.replace(new RegExp(`(//|https?://)${targetDomain}`, 'g'), `$1${host}`);
+      let text = new TextDecoder('utf-8').decode(body);
+
+      // Replace all instances of the proxy site domain with the current host domain in the text
+      text = text.replace(new RegExp( `(//|https?://)${targetDomain}`, 'g'), `$1${host}` );
+      body = new TextEncoder().encode(text).buffer;
     }
 
     return new Response(body, {
