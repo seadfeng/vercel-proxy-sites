@@ -1,6 +1,6 @@
 // api/proxy.js
 export const runtime = 'edge';
-export default async function handler(req) { 
+export async function handler(req) { 
   const url = new URL(`https://${req.headers.host}${req.url}`);
   const { host, pathname } = url; 
 
