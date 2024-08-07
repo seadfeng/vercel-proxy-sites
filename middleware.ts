@@ -1,6 +1,13 @@
-// api/proxy.js
-export const runtime = 'edge';
-export default async function handler(req: Request) { 
+ 
+import { NextRequest } from "next/server"; 
+ 
+const getTargetDomain = (host: string, ownDomain: string) => {
+  if(!host.includes(`.${ownDomain}`)) throw new Error('target domain is null');
+  const domains = host.split(`.${ownDomain}`);
+  return domains[0];
+};
+
+export default async function middleware(req: NextRequest) {
   const host = req.headers.get('host') || process.env.VERCEL_PROJECT_PRODUCTION_URL!;
   const url = new URL(`https://${host}${req.url}`);
   const { pathname } = url; 
@@ -55,8 +62,6 @@ Disallow: /
   }
 }
 
-const getTargetDomain = (host: string, ownDomain: string) => {
-  if(!host.includes(`.${ownDomain}`)) throw new Error('target domain is null');
-  const domains = host.split(`.${ownDomain}`);
-  return domains[0];
+export const config = {
+  matcher: ["/.*"],
 };
