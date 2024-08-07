@@ -63,5 +63,5 @@ Disallow: /
 }
 
 export const config = {
-  matcher: ["/.*"],
+  matcher: ['/robots.txt', '/:path*']
 };
