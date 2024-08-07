@@ -1,6 +1,6 @@
 // api/proxy.js
 export const runtime = 'edge';
-export default async function handler(req) { 
+export default async function handler(req: Request) { 
   const url = new URL(`https://${req.headers.host}${req.url}`);
   const { host, pathname } = url; 
 
@@ -11,7 +11,7 @@ Disallow: /
     return new Response(robots, { status: 200, headers: { 'Content-Type': 'text/plain' } });
   }
 
-  const ownDomain = process.env.OWN_DOMAIN;
+  const ownDomain = process.env.OWN_DOMAIN!;
   let targetDomain;
   try {
     targetDomain = getTargetDomain(host, ownDomain);
@@ -54,7 +54,7 @@ Disallow: /
   }
 }
 
-const getTargetDomain = (host, ownDomain) => {
+const getTargetDomain = (host: string, ownDomain: string) => {
   if(!host.includes(`.${ownDomain}`)) throw new Error('target domain is null');
   const domains = host.split(`.${ownDomain}`);
   return domains[0];
